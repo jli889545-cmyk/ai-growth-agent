@@ -13,41 +13,43 @@
   --muted:#77798a;
   --line:#e9e9f0;
   --primary:#6c55ff;
-  --primary2:#8b78ff;
   --soft:#f0edff;
   --success:#35a76f;
   --shadow:0 12px 35px rgba(34,25,90,.08);
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,
-  "Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",
+  "PingFang SC","Microsoft YaHei",sans-serif;
   color:var(--text);
   background:linear-gradient(
-    180deg,#faf9ff 0%,var(--bg) 55%,#f4f4f8 100%
+    180deg,
+    #faf9ff 0%,
+    var(--bg) 55%,
+    #f4f4f8 100%
   );
 }
 
-button,input,textarea{
-  font:inherit;
-}
-
 button{
-  cursor:pointer;
+  font:inherit;
 }
 
 .app{
   min-height:100vh;
-  padding-bottom:92px;
+  padding-bottom:100px;
 }
 
 .container{
   width:min(1080px,calc(100% - 32px));
   margin:0 auto;
 }
+
+/* ==================== 顶部 ==================== */
 
 header{
   padding:44px 0 26px;
@@ -58,7 +60,6 @@ header{
   font-weight:800;
   letter-spacing:2px;
   font-size:14px;
-  text-transform:uppercase;
   margin-bottom:12px;
 }
 
@@ -101,12 +102,19 @@ h1{
   font-weight:700;
 }
 
+/* ==================== Hero ==================== */
+
 .hero{
-  background:linear-gradient(135deg,#6c55ff,#8975ff);
+  background:linear-gradient(
+    135deg,
+    #6c55ff,
+    #8975ff
+  );
   color:#fff;
   border-radius:28px;
   padding:28px;
-  box-shadow:0 18px 45px rgba(108,85,255,.22);
+  box-shadow:
+    0 18px 45px rgba(108,85,255,.22);
   position:relative;
   overflow:hidden;
 }
@@ -143,10 +151,11 @@ h1{
 
 .progress span{
   display:block;
-  width:25%;
+  width:0%;
   height:100%;
   background:#fff;
   border-radius:99px;
+  transition:.3s;
 }
 
 .stats{
@@ -171,6 +180,8 @@ h1{
 .stat small{
   opacity:.78;
 }
+
+/* ==================== Section ==================== */
 
 section{
   margin-top:30px;
@@ -236,6 +247,8 @@ section{
   font-size:14px;
 }
 
+/* ==================== 任务 ==================== */
+
 .task-list{
   margin:17px 0 0;
   padding:0;
@@ -257,6 +270,8 @@ section{
   line-height:1;
 }
 
+/* ==================== 按钮 ==================== */
+
 .btn{
   border:0;
   border-radius:13px;
@@ -272,6 +287,12 @@ section{
   background:#f0f0f6;
   color:#303044;
 }
+
+.btn:active{
+  transform:scale(.98);
+}
+
+/* ==================== Quick ==================== */
 
 .quick{
   display:grid;
@@ -292,6 +313,8 @@ section{
   font-size:17px;
 }
 
+/* ==================== 提醒 ==================== */
+
 .tip{
   padding:18px 20px;
   background:#fff;
@@ -302,100 +325,7 @@ section{
   font-size:14px;
 }
 
-/* AI 对话弹窗 */
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:rgba(20,20,30,.45);
-  backdrop-filter:blur(8px);
-  display:none;
-  align-items:center;
-  justify-content:center;
-  z-index:100;
-  padding:20px;
-}
-
-.modal.show{
-  display:flex;
-}
-
-.modal-box{
-  width:min(720px,100%);
-  max-height:90vh;
-  overflow:auto;
-  background:white;
-  border-radius:24px;
-  padding:25px;
-  box-shadow:0 30px 80px rgba(0,0,0,.25);
-}
-
-.modal-head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px;
-}
-
-.modal-head h2{
-  margin:0;
-}
-
-.close{
-  border:0;
-  background:#f1f1f5;
-  width:36px;
-  height:36px;
-  border-radius:50%;
-}
-
-.chat-result{
-  background:#f7f7fb;
-  border-radius:18px;
-  padding:18px;
-  min-height:100px;
-  line-height:1.8;
-  white-space:pre-wrap;
-  margin-bottom:15px;
-}
-
-textarea{
-  width:100%;
-  min-height:120px;
-  border:1px solid var(--line);
-  border-radius:15px;
-  padding:14px;
-  resize:vertical;
-  outline:none;
-}
-
-textarea:focus{
-  border-color:var(--primary);
-}
-
-.loading{
-  color:var(--primary);
-}
-
-.upload-box{
-  border:2px dashed #dcd9ef;
-  border-radius:18px;
-  padding:30px;
-  text-align:center;
-  background:#faf9ff;
-}
-
-.upload-box input{
-  margin-top:15px;
-}
-
-.preview{
-  max-width:100%;
-  max-height:320px;
-  margin-top:15px;
-  border-radius:15px;
-  display:none;
-}
+/* ==================== 导航 ==================== */
 
 nav{
   position:fixed;
@@ -437,6 +367,8 @@ nav{
   color:var(--primary);
 }
 
+/* ==================== Toast ==================== */
+
 .toast{
   position:fixed;
   left:50%;
@@ -458,6 +390,211 @@ nav{
   transform:translateX(-50%) translateY(0);
 }
 
+/* ==================== V3 ==================== */
+
+.v3-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.v3-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:21px;
+  box-shadow:var(--shadow);
+}
+
+.v3-card h3{
+  margin:12px 0 7px;
+  font-size:20px;
+}
+
+.v3-card p{
+  margin:0;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.65;
+}
+
+.v3-input,
+.v3-select{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:13px;
+  padding:12px;
+  margin-top:12px;
+  outline:none;
+  background:#fff;
+  font:inherit;
+}
+
+.v3-input:focus,
+.v3-select:focus{
+  border-color:var(--primary);
+}
+
+.v3-actions{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.v3-small{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:9px;
+  line-height:1.5;
+}
+
+.v3-record{
+  background:#faf9ff;
+  border-radius:16px;
+  padding:14px;
+  margin-top:10px;
+  border:1px solid #eeeaff;
+}
+
+.v3-record strong{
+  display:block;
+  margin-bottom:5px;
+}
+
+.v3-record span{
+  font-size:13px;
+  color:#666;
+  line-height:1.6;
+}
+
+.v3-chip{
+  display:inline-block;
+  background:var(--soft);
+  color:var(--primary);
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:12px;
+  font-weight:700;
+  margin:3px 4px 0 0;
+}
+
+.v3-empty{
+  color:#999;
+  font-size:13px;
+  padding:10px 0;
+}
+
+.v3-full{
+  grid-column:1/-1;
+}
+
+.chat-result{
+  white-space:pre-wrap;
+  background:#faf9ff;
+  border-radius:16px;
+  padding:15px;
+  color:#444;
+  font-size:14px;
+  line-height:1.7;
+}
+
+/* ==================== 学习弹窗 ==================== */
+
+.learning-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(20,20,30,.45);
+  backdrop-filter:blur(8px);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:20px;
+}
+
+.learning-modal.show{
+  display:flex;
+}
+
+.learning-box{
+  width:min(760px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:24px;
+  padding:25px;
+  box-shadow:0 30px 80px rgba(0,0,0,.25);
+}
+
+.learning-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.learning-head h2{
+  margin:0;
+}
+
+.close{
+  border:0;
+  background:#f1f1f6;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  font-size:24px;
+  cursor:pointer;
+}
+
+.day-info{
+  color:var(--muted);
+  font-size:14px;
+  margin-bottom:14px;
+}
+
+.learn-task{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  padding:15px 4px;
+  border-top:1px solid var(--line);
+  cursor:pointer;
+}
+
+.learn-task input{
+  width:20px;
+  height:20px;
+  margin-top:2px;
+  accent-color:var(--primary);
+}
+
+.learn-task.done .learn-title{
+  text-decoration:line-through;
+  color:#999;
+}
+
+.learn-title{
+  font-weight:800;
+  margin-bottom:4px;
+}
+
+.learn-desc{
+  font-size:13px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+.learn-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+
+/* ==================== 手机端 ==================== */
+
 @media(max-width:720px){
 
   .container{
@@ -469,8 +606,13 @@ nav{
   }
 
   .grid,
-  .quick{
+  .quick,
+  .v3-grid{
     grid-template-columns:1fr;
+  }
+
+  .v3-full{
+    grid-column:auto;
   }
 
   .stats{
@@ -494,27 +636,17 @@ nav{
     font-size:25px;
   }
 
-  .card{
+  .card,
+  .v3-card{
     padding:18px;
+  }
+
+  .topbar{
+    align-items:flex-start;
+    flex-direction:column;
   }
 }
 </style>
-
-<style>
-.learning-modal{position:fixed;inset:0;background:rgba(20,20,30,.45);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
-.learning-modal.show{display:flex}
-.learning-box{width:min(760px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:24px;padding:25px;box-shadow:0 30px 80px rgba(0,0,0,.25)}
-.learning-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.learning-head h2{margin:0}
-.day-info{color:#77798a;font-size:14px;margin-bottom:14px}
-.learn-task{display:flex;gap:12px;align-items:flex-start;padding:15px 4px;border-top:1px solid #e9e9f0}
-.learn-task input{width:20px;height:20px;margin-top:2px;accent-color:#6c55ff}
-.learn-task.done .learn-title{text-decoration:line-through;color:#999}
-.learn-title{font-weight:800;margin-bottom:4px}
-.learn-desc{font-size:13px;color:#77798a;line-height:1.6}
-.learn-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-</style>
-
 </head>
 
 <body>
@@ -522,6 +654,8 @@ nav{
 <div class="app">
 
 <main class="container">
+
+<!-- ==================== HEADER ==================== -->
 
 <header>
 
@@ -550,7 +684,7 @@ AI 小白成长 Agent
 </header>
 
 
-<!-- 成长进度 -->
+<!-- ==================== HERO ==================== -->
 
 <div class="hero">
 
@@ -558,46 +692,80 @@ AI 小白成长 Agent
 今日成长进度
 </div>
 
-<div class="hero-main">
-完成 1 / 4 项，继续保持
+<div class="hero-main" id="heroMain">
+完成 0 / 3 项，继续保持
 </div>
 
 <div class="progress">
-<span></span>
+
+<span id="progressBar"></span>
+
 </div>
 
 <div class="stats">
 
 <div class="stat">
-<b>1</b>
-<small>今日完成</small>
+
+<b id="doneCount">
+0
+</b>
+
+<small>
+今日完成
+</small>
+
 </div>
+
 
 <div class="stat">
-<b>0</b>
-<small>连续学习</small>
+
+<b id="streakCount">
+0
+</b>
+
+<small>
+连续学习
+</small>
+
 </div>
+
 
 <div class="stat">
-<b>1</b>
-<small>项目累计</small>
-</div>
+
+<b id="projectCount">
+1
+</b>
+
+<small>
+项目累计
+</small>
 
 </div>
 
 </div>
 
+</div>
 
-<!-- 今日任务 -->
+
+<!-- ==================== 今日任务 ==================== -->
 
 <section>
 
 <div class="section-head">
-<h2>今日任务</h2>
-<span>先完成最重要的一件事</span>
+
+<h2>
+今日任务
+</h2>
+
+<span>
+先完成最重要的一件事
+</span>
+
 </div>
 
+
 <div class="grid">
+
 
 <div class="card">
 
@@ -618,27 +786,29 @@ AI 学习
 </h3>
 
 <p>
-今天：把你已经完成的 Agent，用自己的话重新讲清楚。
+今天：继续理解 Agent、HTML、GitHub、Vercel、API 和 AI 模型之间的关系。
 </p>
 
 <ul class="task-list">
 
 <li>
-说清楚 HTML / GitHub / Vercel 的关系
+理解 HTML 前端
 </li>
 
 <li>
-说清楚 API 为什么不能直接暴露在前端
+理解 API 后端
 </li>
 
 <li>
-写下今天真正学会的 3 个知识点
+理解 GitHub + Vercel
 </li>
 
 </ul>
 
-<button class="btn"
-onclick="openLearning()">
+<button
+class="btn"
+onclick="openLearning()"
+>
 开始学习
 </button>
 
@@ -664,28 +834,30 @@ onclick="openLearning()">
 </h3>
 
 <p>
-记录你真实学习 AI、做 Agent、踩坑和解决问题的过程。
+围绕“AI 小白自己做 Agent”继续积累真实案例。
 </p>
 
 <ul class="task-list">
 
 <li>
-确定 1 个真实经历型选题
+确定一个真实选题
 </li>
 
 <li>
-写出开头 3 秒钩子
+写出 3 秒开头
 </li>
 
 <li>
-整理电脑录屏与成品截图
+整理电脑录屏和截图
 </li>
 
 </ul>
 
-<button class="btn"
-onclick="generateTopic()">
-生成选题
+<button
+class="btn"
+onclick="showToast('开始内容创作')"
+>
+开始创作
 </button>
 
 </div>
@@ -695,7 +867,7 @@ onclick="generateTopic()">
 </section>
 
 
-<!-- 快速开始 -->
+<!-- ==================== 快速开始 ==================== -->
 
 <section>
 
@@ -706,7 +878,7 @@ onclick="generateTopic()">
 </h2>
 
 <span>
-逐步接入真实功能
+逐步开发真实功能
 </span>
 
 </div>
@@ -715,8 +887,10 @@ onclick="generateTopic()">
 <div class="quick">
 
 
-<div class="card"
-onclick="openUpload()">
+<div
+class="card"
+onclick="scrollToV3('dataTitle')"
+>
 
 <div class="icon">
 📊
@@ -727,14 +901,16 @@ onclick="openUpload()">
 </h3>
 
 <p>
-上传小红书、抖音、B站后台截图，后续让 AI 自动读取并分析。
+现在先手动记录数据，下一阶段升级为上传截图 → AI 自动分析。
 </p>
 
 </div>
 
 
-<div class="card"
-onclick="generateTopic()">
+<div
+class="card"
+onclick="scrollToV3('contentTitle')"
+>
 
 <div class="icon">
 💡
@@ -745,14 +921,16 @@ onclick="generateTopic()">
 </h3>
 
 <p>
-根据你的学习进度、项目经历和账号方向生成内容选题。
+记录你的真实学习经历，把学习过程变成内容。
 </p>
 
 </div>
 
 
-<div class="card"
-onclick="openChat('AI 成长助手')">
+<div
+class="card"
+onclick="scrollToV3('reviewInput')"
+>
 
 <div class="icon">
 🤖
@@ -763,7 +941,7 @@ AI 成长助手
 </h3>
 
 <p>
-遇到不会的问题，直接问 Agent，让它告诉你下一步应该做什么。
+把今天遇到的问题交给 AI，帮助你复盘并安排下一步。
 </p>
 
 </div>
@@ -774,12 +952,318 @@ AI 成长助手
 </section>
 
 
+<!-- ==================== V3 成长记录 ==================== -->
+
 <section>
 
 <div class="section-head">
+
+<h2>
+成长记录 V3
+</h2>
+
+<span>
+学 → 记录 → 复盘 → 内容
+</span>
+
+</div>
+
+
+<div class="v3-grid">
+
+
+<!-- 学习记录 -->
+
+<div class="v3-card">
+
+<div class="icon">
+📝
+</div>
+
+<h3>
+今日学习记录
+</h3>
+
+<p>
+把今天真正学会和没学会的东西留下来。
+</p>
+
+<textarea
+class="v3-input"
+id="learnRecord"
+rows="5"
+placeholder="例如：今天我终于理解了 API。以前我以为 API 就是 AI，现在知道它更像是网页和 AI 之间传递信息的通道……"
+></textarea>
+
+<input
+class="v3-input"
+id="learnMinutes"
+type="number"
+min="0"
+placeholder="今天学习了多少分钟？"
+>
+
+<div class="v3-actions">
+
+<button
+class="btn"
+onclick="saveLearningRecord()"
+>
+保存学习记录
+</button>
+
+<button
+class="btn secondary"
+onclick="loadLatestLearning()"
+>
+查看最近记录
+</button>
+
+</div>
+
+<div id="learningRecordList"></div>
+
+</div>
+
+
+<!-- AI复盘 -->
+
+<div class="v3-card">
+
+<div class="icon">
+🤖
+</div>
+
+<h3>
+AI 学习复盘
+</h3>
+
+<p>
+把今天的学习记录交给 Agent，让 AI 帮你总结和安排下一步。
+</p>
+
+<textarea
+class="v3-input"
+id="reviewInput"
+rows="5"
+placeholder="我今天学了什么？哪里没懂？做了什么？"
+></textarea>
+
+<button
+class="btn"
+onclick="aiReview()"
+>
+让 AI 帮我复盘
+</button>
+
+<div
+class="chat-result"
+id="reviewResult"
+style="margin-top:12px;min-height:70px"
+>
+等待你的学习记录……
+</div>
+
+</div>
+
+
+<!-- 内容记录 -->
+
+<div class="v3-card">
+
+<div class="icon">
+✍️
+</div>
+
+<h3>
+内容记录
+</h3>
+
+<p>
+把真实学习过程变成自媒体内容，不需要装专家。
+</p>
+
+<input
+class="v3-input"
+id="contentTitle"
+placeholder="内容标题 / 选题"
+>
+
+<input
+class="v3-input"
+id="contentPlatform"
+placeholder="发布平台，例如：小红书"
+>
+
+<select
+class="v3-select"
+id="contentStatus"
+>
+
+<option value="想法">
+想法
+</option>
+
+<option value="脚本完成">
+脚本完成
+</option>
+
+<option value="已拍摄">
+已拍摄
+</option>
+
+<option value="已剪辑">
+已剪辑
+</option>
+
+<option value="已发布">
+已发布
+</option>
+
+</select>
+
+<textarea
+class="v3-input"
+id="contentNote"
+rows="4"
+placeholder="开头钩子、台词、电脑画面、发布后的数据等"
+></textarea>
+
+<button
+class="btn"
+onclick="saveContentRecord()"
+>
+保存内容记录
+</button>
+
+<div id="contentRecordList"></div>
+
+</div>
+
+
+<!-- 数据记录 -->
+
+<div class="v3-card">
+
+<div class="icon">
+📊
+</div>
+
+<h3>
+发布数据记录
+</h3>
+
+<p>
+现在先手动记录，后面升级为“上传截图 → AI 自动识别”。
+</p>
+
+<input
+class="v3-input"
+id="dataTitle"
+placeholder="哪一条内容？"
+>
+
+<div
+style="
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+"
+>
+
+<input
+class="v3-input"
+id="dataViews"
+type="number"
+min="0"
+placeholder="播放/阅读"
+>
+
+<input
+class="v3-input"
+id="dataLikes"
+type="number"
+min="0"
+placeholder="点赞"
+>
+
+<input
+class="v3-input"
+id="dataSaves"
+type="number"
+min="0"
+placeholder="收藏"
+>
+
+<input
+class="v3-input"
+id="dataComments"
+type="number"
+min="0"
+placeholder="评论"
+>
+
+</div>
+
+<button
+class="btn"
+onclick="saveDataRecord()"
+>
+保存数据
+</button>
+
+<div id="dataRecordList"></div>
+
+</div>
+
+
+<!-- 成长闭环 -->
+
+<div class="v3-card v3-full">
+
+<div class="icon">
+🧠
+</div>
+
+<h3>
+我的成长闭环
+</h3>
+
+<p>
+
+现在你的 Agent 开始从“聊天机器人”
+变成“个人成长系统”：
+
+<br><br>
+
+<b>
+学习 → 记录 → AI 复盘 → 做内容 → 发布 → 记录数据 → 再优化
+</b>
+
+</p>
+
+<div
+id="growthSummary"
+style="margin-top:12px"
+></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ==================== 今日提醒 ==================== -->
+
+<section>
+
+<div class="section-head">
+
 <h2>
 今日提醒
 </h2>
+
 </div>
 
 <div class="tip">
@@ -798,7 +1282,7 @@ AI 成长助手
 
 <br><br>
 
-这个 Agent 的目标，就是逐渐把这条闭环真正记录下来。
+这个 Agent 会逐渐帮你记录整个过程。
 
 </div>
 
@@ -807,7 +1291,7 @@ AI 成长助手
 </main>
 
 
-<!-- 底部导航 -->
+<!-- ==================== 底部导航 ==================== -->
 
 <nav>
 
@@ -815,7 +1299,8 @@ AI 成长助手
 
 <button
 class="nav-item active"
-onclick="scrollToTop()">
+onclick="goHome()"
+>
 
 <span class="nav-icon">
 ⌂
@@ -828,7 +1313,8 @@ onclick="scrollToTop()">
 
 <button
 class="nav-item"
-onclick="openChat('学习计划')">
+onclick="openLearning()"
+>
 
 <span class="nav-icon">
 ✓
@@ -841,7 +1327,8 @@ onclick="openChat('学习计划')">
 
 <button
 class="nav-item"
-onclick="generateTopic()">
+onclick="scrollToV3('contentTitle')"
+>
 
 <span class="nav-icon">
 ✦
@@ -854,7 +1341,8 @@ onclick="generateTopic()">
 
 <button
 class="nav-item"
-onclick="openUpload()">
+onclick="scrollToV3('dataTitle')"
+>
 
 <span class="nav-icon">
 ◈
@@ -871,23 +1359,25 @@ onclick="openUpload()">
 </div>
 
 
-<!-- AI 对话 -->
+<!-- ==================== 学习弹窗 ==================== -->
 
 <div
-class="modal"
-id="chatModal">
+class="learning-modal"
+id="learningModal"
+>
 
-<div class="modal-box">
+<div class="learning-box">
 
-<div class="modal-head">
+<div class="learning-head">
 
-<h2 id="chatTitle">
-AI 成长助手
+<h2 id="learningTitle">
+今日学习
 </h2>
 
 <button
 class="close"
-onclick="closeModal('chatModal')">
+onclick="closeLearning()"
+>
 ×
 </button>
 
@@ -895,110 +1385,46 @@ onclick="closeModal('chatModal')">
 
 
 <div
-class="chat-result"
-id="chatResult">
-
-你好，我是你的 AI 成长助手。
-
-你可以告诉我：
-
-• 今天学了什么
-• 遇到了什么问题
-• 不知道下一步做什么
-• 想做什么自媒体内容
-
-我会根据你的情况给你下一步行动。
-
-</div>
-
-
-<textarea
-id="chatInput"
-placeholder="例如：我今天学会了 GitHub + Vercel，但是还不知道 API 是怎么连接的……">
-</textarea>
-
-
-<button
-class="btn"
-onclick="sendMessage()">
-
-发送给 Agent
-
-</button>
-
-</div>
-
-</div>
-
-
-<!-- 截图上传 -->
-
-<div
-class="modal"
-id="uploadModal">
-
-<div class="modal-box">
-
-<div class="modal-head">
-
-<h2>
-账号数据分析
-</h2>
-
-<button
-class="close"
-onclick="closeModal('uploadModal')">
-×
-</button>
-
-</div>
-
-
-<div class="upload-box">
-
-<p>
-📊 上传你的自媒体后台截图
-</p>
-
-<p style="color:#777;font-size:13px;">
-例如：小红书 / 抖音 / B站数据截图
-</p>
-
-
-<input
-type="file"
-id="imageInput"
-accept="image/*"
-onchange="previewImage(event)"
->
-
-
-<img
-id="preview"
-class="preview"
->
-
-
-<br>
-
-
-<button
-class="btn"
-onclick="analyzeImage()">
-
-开始分析
-
-</button>
-
-</div>
+class="day-info"
+id="learningDesc"
+></div>
 
 
 <div
-class="chat-result"
-id="analysisResult"
-style="margin-top:15px;">
+id="learningTasks"
+></div>
 
-等待上传截图……
+
+<div
+class="tip"
+style="margin-top:15px"
+>
+
+<b>
+完成标准：
+</b>
+
+不是看完，而是能够用自己的话解释，
+并且最好亲手操作一次。
+
+</div>
+
+
+<div class="learn-actions">
+
+<button
+class="btn"
+onclick="askLearningAI()"
+>
+不会？让 AI 教我
+</button>
+
+<button
+class="btn secondary"
+onclick="closeLearning()"
+>
+完成，返回首页
+</button>
 
 </div>
 
@@ -1006,16 +1432,20 @@ style="margin-top:15px;">
 
 </div>
 
+
+<!-- ==================== Toast ==================== -->
 
 <div
 class="toast"
-id="toast">
-</div>
+id="toast"
+></div>
 
 
 <script>
 
-/* 日期 */
+/* ============================================================
+   基础功能
+============================================================ */
 
 const d = new Date();
 
@@ -1023,487 +1453,1374 @@ document.getElementById("today").textContent =
 `${d.getFullYear()} 年 ${d.getMonth()+1} 月 ${d.getDate()} 日`;
 
 
-/* Toast */
-
 function showToast(text){
 
-const el =
-document.getElementById("toast");
+  const el =
+    document.getElementById("toast");
 
-el.textContent = text;
+  el.textContent = text;
 
-el.classList.add("show");
+  el.classList.add("show");
 
-clearTimeout(window.__toastTimer);
+  clearTimeout(window.__toastTimer);
 
-window.__toastTimer =
-setTimeout(
-()=>el.classList.remove("show"),
-2200
-);
+  window.__toastTimer =
+    setTimeout(
+      ()=>{
+        el.classList.remove("show");
+      },
+      2200
+    );
+}
+
+
+function scrollToV3(id){
+
+  const el =
+    document.getElementById(id);
+
+  if(!el) return;
+
+  el.scrollIntoView({
+    behavior:"smooth",
+    block:"center"
+  });
+
+  setTimeout(()=>{
+    el.focus();
+  },500);
+}
+
+
+function goHome(){
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
 }
 
 
-/* 打开 AI */
+/* ============================================================
+   每日学习计划
+============================================================ */
 
-function openChat(title){
-
-document.getElementById("chatTitle").textContent =
-title;
-
-document.getElementById("chatModal")
-.classList.add("show");
-
-}
-
-
-/* 关闭 */
-
-function closeModal(id){
-
-document.getElementById(id)
-.classList.remove("show");
-
-}
-
-
-/* 调用你的 API */
-
-async function sendMessage(){
-
-const input =
-document.getElementById("chatInput");
-
-const result =
-document.getElementById("chatResult");
-
-const message =
-input.value.trim();
-
-if(!message){
-
-showToast("先输入你的问题");
-
-return;
-
-}
-
-
-result.innerHTML =
-'<span class="loading">AI 正在思考……</span>';
-
-
-try{
-
-const response =
-await fetch("/api/chat",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-message:message
-
-})
-
-});
-
-
-const data =
-await response.json();
-
-
-if(!response.ok){
-
-throw new Error(
-data.error || "API 请求失败"
-);
-
-}
-
-
-result.textContent =
-data.reply || data.content || "AI 没有返回内容";
-
-
-}catch(error){
-
-result.textContent =
-"连接 AI 失败：\n" +
-error.message +
-"\n\n请检查 Vercel 的环境变量和 /api/chat.js。";
-
-}
-
-}
-
-
-/* AI 生成选题 */
-
-async function generateTopic(){
-
-openChat("今日自媒体选题");
-
-const result =
-document.getElementById("chatResult");
-
-result.innerHTML =
-'<span class="loading">正在根据你的方向生成选题……</span>';
-
-
-try{
-
-const response =
-await fetch("/api/chat",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-message:`
-
-你是我的 AI 学习和自媒体运营 Agent。
-
-我的定位：
-AI 小白，记录自己从不会到学会 AI、Agent、GitHub、Vercel、API、Claude、Codex 等工具的过程。
-
-我的内容主要发布：
-小红书 + 视频。
-
-请根据这个定位给我：
-
-1. 今天最适合发布的一个选题
-2. 3秒开头钩子
-3. 视频标题
-4. 30-60秒视频结构
-5. 具体台词
-6. 适合展示什么电脑画面
-7. 小红书文案
-8. 结尾互动问题
-
-要求：
-不要装专家。
-重点是真实学习过程、踩坑、解决问题和成果。
-`
-
-})
-
-});
-
-
-const data =
-await response.json();
-
-
-if(!response.ok){
-
-throw new Error(
-data.error || "请求失败"
-);
-
-}
-
-
-result.textContent =
-data.reply || data.content || "没有返回结果";
-
-
-}catch(error){
-
-result.textContent =
-"生成失败：\n" +
-error.message;
-
-}
-
-}
-
-
-/* 上传截图 */
-
-function openUpload(){
-
-document.getElementById("uploadModal")
-.classList.add("show");
-
-}
-
-
-/* 图片预览 */
-
-function previewImage(event){
-
-const file =
-event.target.files[0];
-
-if(!file) return;
-
-const preview =
-document.getElementById("preview");
-
-preview.src =
-URL.createObjectURL(file);
-
-preview.style.display =
-"block";
-
-document.getElementById("analysisResult")
-.textContent =
-"截图已上传。点击“开始分析”。";
-
-}
-
-
-/* 截图分析 */
-
-async function analyzeImage(){
-
-const file =
-document.getElementById("imageInput").files[0];
-
-const result =
-document.getElementById("analysisResult");
-
-
-if(!file){
-
-showToast("请先上传截图");
-
-return;
-
-}
-
-
-result.innerHTML =
-'<span class="loading">正在准备分析……</span>';
-
-
-/*
-
-第一阶段：
-
-先把图片上传功能做好。
-
-真正的“AI 看懂截图”需要视觉模型。
-
-DeepSeek 当前这个文字模型不能简单等同于视觉模型。
-
-后面可以接入支持图片理解的模型。
-
-*/
-
-result.textContent =
-"截图已经成功读取到网页。\n\n" +
-
-"下一阶段将接入视觉 AI，让 Agent 自动识别：\n\n" +
-
-"• 播放量\n" +
-
-"• 点赞\n" +
-
-"• 收藏\n" +
-
-"• 评论\n" +
-
-"• 完播率\n" +
-
-"• 涨粉\n" +
-
-"• 内容类型\n\n" +
-
-"然后自动判断：\n\n" +
-
-"“为什么这条数据好/不好？”\n" +
-
-"“下一条应该做什么？”";
-
-}
-
-
-/* 回到顶部 */
-
-function scrollToTop(){
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-}
-
-</script>
-
-
-<div class="learning-modal" id="learningModal">
-  <div class="learning-box">
-    <div class="learning-head">
-      <h2 id="learningTitle">今日学习</h2>
-      <button class="close" onclick="closeLearning()">×</button>
-    </div>
-    <div class="day-info" id="learningDesc"></div>
-    <div id="learningTasks"></div>
-    <div class="tip" style="margin-top:15px">
-      <b>完成标准：</b>不是看完，而是能用自己的话解释，并在你的 Agent 项目里实际操作一次。
-    </div>
-    <div class="learn-actions">
-      <button class="btn" onclick="askLearningAI()">不会？让 AI 教我</button>
-      <button class="btn secondary" onclick="closeLearning()">完成，返回首页</button>
-    </div>
-  </div>
-</div>
-
-
-<script>
-/* ===== V2：每日学习系统 ===== */
 const learningPlan = {
- "2026-08-28": {
-   title:"第 1 天｜搞懂自己的 Agent",
-   desc:"今天不学新工具，把已经做出来的东西真正理解。",
-   tasks:[
-    ["HTML 是什么？","理解网页界面、按钮和 JavaScript 在你的 Agent 中负责什么。"],
-    ["GitHub + Vercel 是什么关系？","理解 GitHub 保存代码，Vercel 把代码部署成可以访问的网站。"],
-    ["API 为什么不能直接暴露？","理解前端 → 后端 API → AI，以及 API Key 为什么应该放在服务端。"]
-   ]
- },
- "2026-08-29": {
-   title:"第 2 天｜JavaScript 入门",
-   desc:"只学这个项目真正用得到的 JavaScript。",
-   tasks:[
-    ["看懂 fetch()","知道网页如何向 /api/chat 发送请求。"],
-    ["看懂 async / await","知道为什么调用 AI 时需要等待返回结果。"],
-    ["自己改一个按钮","不要复制答案，自己修改按钮文字或提示。"]
-   ]
- },
- "2026-08-30": {
-   title:"第 3 天｜API + JSON",
-   desc:"把“网页 → API → DeepSeek → 返回答案”讲清楚。",
-   tasks:[
-    ["理解 POST 请求","知道 message 是怎样发送给后端的。"],
-    ["理解 JSON","能看懂请求和返回结果的大致结构。"],
-    ["画出 Agent 架构","用户 → 网页 → /api/chat → DeepSeek → 返回答案。"]
-   ]
- },
- "2026-08-31": {
-   title:"第 4 天｜Prompt 与 Agent",
-   desc:"从“调用模型”开始进入“让 AI 按规则完成任务”。",
-   tasks:[
-    ["理解 Prompt","知道角色、目标、背景和输出要求为什么重要。"],
-    ["写自己的 Agent 规则","定义它是你的 AI 学习 + 自媒体教练。"],
-    ["固定输出格式","让 AI 按“问题 → 原因 → 下一步行动”回答。"]
-   ]
- },
- "2026-09-01": {
-   title:"第 5 天｜GitHub 基础",
-   desc:"以后你要敢自己修改代码、提交和回退。",
-   tasks:[
-    ["理解 commit","知道一次 commit 就是保存一个版本。"],
-    ["查看修改记录","知道改坏后如何找到之前版本。"],
-    ["完成一次自己的修改","修改 index.html 并提交到 GitHub。"]
-   ]
- },
- "2026-09-02": {
-   title:"第 6 天｜Claude / Codex / Skills",
-   desc:"先建立工具地图，不追求一次全部学会。",
-   tasks:[
-    ["Claude","了解它适合哪些 AI 对话、分析和编程场景。"],
-    ["Codex","了解它如何辅助理解、编写和修改代码。"],
-    ["Skills","理解可复用的能力/工作流程为什么能让 Agent 更稳定。"]
-   ]
- },
- "2026-09-03": {
-   title:"第 7 天｜第一周复盘",
-   desc:"把第一周学习变成真正属于你的能力。",
-   tasks:[
-    ["复习 10 个关键词","不用背定义，用自己的话解释。"],
-    ["记录 3 个没搞懂的问题","交给 AI 成长助手分析。"],
-    ["发布一条真实经历内容","主题：AI 小白第一次把自己的 Agent 跑通。"]
-   ]
- }
+
+"2026-08-28":{
+
+  title:"第 1 天｜搞懂自己的 Agent",
+
+  desc:
+  "今天不追求学很多，把你已经做出来的 Agent 真正理解。",
+
+  tasks:[
+
+    [
+      "理解 HTML",
+      "知道 HTML 主要负责网页的结构和界面。"
+    ],
+
+    [
+      "理解 GitHub + Vercel",
+      "GitHub 保存代码，Vercel 把代码部署成可以访问的网站。"
+    ],
+
+    [
+      "理解 API",
+      "理解网页为什么需要通过 API 与背后的 AI 模型交流。"
+    ]
+
+  ]
+
+},
+
+
+"2026-08-29":{
+
+  title:"第 2 天｜JavaScript 入门",
+
+  desc:
+  "只学习你这个 Agent 真正用得到的 JavaScript。",
+
+  tasks:[
+
+    [
+      "看懂 fetch()",
+      "知道网页如何向 /api/chat 发送请求。"
+    ],
+
+    [
+      "理解 async / await",
+      "知道调用 AI 时为什么需要等待结果。"
+    ],
+
+    [
+      "修改一个按钮",
+      "自己修改按钮文字或提示。"
+    ]
+
+  ]
+
+},
+
+
+"2026-08-30":{
+
+  title:"第 3 天｜API + JSON",
+
+  desc:
+  "把网页 → API → AI → 答案真正讲清楚。",
+
+  tasks:[
+
+    [
+      "理解 POST 请求",
+      "知道 message 是怎样发送给后端的。"
+    ],
+
+    [
+      "理解 JSON",
+      "能看懂请求和返回结果的大概结构。"
+    ],
+
+    [
+      "画 Agent 架构",
+      "用户 → 网页 → /api/chat → AI → 返回答案。"
+    ]
+
+  ]
+
+},
+
+
+"2026-08-31":{
+
+  title:"第 4 天｜Prompt 与 Agent",
+
+  desc:
+  "从调用 AI 开始进入真正的 Agent 思维。",
+
+  tasks:[
+
+    [
+      "理解 Prompt",
+      "知道角色、目标、背景和输出要求为什么重要。"
+    ],
+
+    [
+      "写 Agent 规则",
+      "定义你的 AI 学习 + 自媒体教练。"
+    ],
+
+    [
+      "固定输出格式",
+      "让 AI 按问题 → 原因 → 下一步行动回答。"
+    ]
+
+  ]
+
+},
+
+
+"2026-09-01":{
+
+  title:"第 5 天｜GitHub 基础",
+
+  desc:
+  "以后你要敢自己修改代码、提交和回退。",
+
+  tasks:[
+
+    [
+      "理解 commit",
+      "知道 commit 就像保存一个代码版本。"
+    ],
+
+    [
+      "查看修改记录",
+      "知道代码改坏后如何寻找之前版本。"
+    ],
+
+    [
+      "完成一次自己的修改",
+      "修改 index.html 并提交到 GitHub。"
+    ]
+
+  ]
+
+},
+
+
+"2026-09-02":{
+
+  title:"第 6 天｜Claude / Codex / Skills",
+
+  desc:
+  "建立 AI 工具地图，不追求一天全部学会。",
+
+  tasks:[
+
+    [
+      "Claude",
+      "了解它适合哪些分析和编程场景。"
+    ],
+
+    [
+      "Codex",
+      "了解它如何帮助理解、编写和修改代码。"
+    ],
+
+    [
+      "Skills",
+      "理解可复用能力和工作流程为什么有价值。"
+    ]
+
+  ]
+
+},
+
+
+"2026-09-03":{
+
+  title:"第 7 天｜第一周复盘",
+
+  desc:
+  "把第一周的学习真正变成自己的能力。",
+
+  tasks:[
+
+    [
+      "复习 10 个关键词",
+      "不用背定义，用自己的话解释。"
+    ],
+
+    [
+      "记录 3 个没搞懂的问题",
+      "交给 AI 成长助手分析。"
+    ],
+
+    [
+      "发布一条真实经历内容",
+      "主题：AI 小白第一次把自己的 Agent 跑通。"
+    ]
+
+  ]
+
+}
+
 };
 
-function state(){
-  try { return JSON.parse(localStorage.getItem("aiGrowthState") || "{}"); }
-  catch(e){ return {}; }
-}
-function saveState(s){ localStorage.setItem("aiGrowthState", JSON.stringify(s)); }
 
-function currentPlan(){
-  const key = new Date().toISOString().slice(0,10);
-  return learningPlan[key] || {
-    title:"今日学习｜项目实战",
-    desc:"打开自己的项目，复习最近学过的内容，并记录一个不会的问题。",
-    tasks:[
-      ["复习最近学过的知识","用自己的话解释一个概念。"],
-      ["修改项目中的一个小地方","自己完成，不要只复制粘贴。"],
-      ["记录今天的问题","把问题交给 AI 成长助手。"]
-    ]
-  };
+/* ============================================================
+   学习状态
+============================================================ */
+
+function getLearningState(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(
+        "aiGrowthLearning"
+      ) || "{}"
+    );
+
+  }catch(e){
+
+    return {};
+
+  }
+
 }
+
+
+function saveLearningState(state){
+
+  localStorage.setItem(
+    "aiGrowthLearning",
+    JSON.stringify(state)
+  );
+
+}
+
+
+function getToday(){
+
+  const now = new Date();
+
+  return now.getFullYear()
+    + "-"
+    + String(now.getMonth()+1).padStart(2,"0")
+    + "-"
+    + String(now.getDate()).padStart(2,"0");
+
+}
+
+
+/* ============================================================
+   获取今天的计划
+============================================================ */
+
+function getTodayPlan(){
+
+  const today =
+    getToday();
+
+  return learningPlan[today]
+    || {
+
+      title:"今日学习｜项目实战",
+
+      desc:
+      "打开自己的项目，复习最近学过的内容，并记录一个不会的问题。",
+
+      tasks:[
+
+        [
+          "复习最近学过的知识",
+          "用自己的话解释一个概念。"
+        ],
+
+        [
+          "修改项目中的一个小地方",
+          "自己完成，不要只复制粘贴。"
+        ],
+
+        [
+          "记录今天的问题",
+          "把问题交给 AI 成长助手。"
+        ]
+
+      ]
+
+    };
+
+}
+
+
+/* ============================================================
+   学习模块
+============================================================ */
+
+function openLearning(){
+
+  renderLearning();
+
+  document
+    .getElementById("learningModal")
+    .classList.add("show");
+
+}
+
+
+function closeLearning(){
+
+  document
+    .getElementById("learningModal")
+    .classList.remove("show");
+
+}
+
 
 function renderLearning(){
-  const p=currentPlan(), s=state();
-  document.getElementById("learningTitle").textContent=p.title;
-  document.getElementById("learningDesc").textContent=p.desc;
-  document.getElementById("learningTasks").innerHTML=p.tasks.map((t,i)=>{
-    const key="task_"+new Date().toISOString().slice(0,10)+"_"+i;
-    const done=!!s[key];
-    return `<label class="learn-task ${done?"done":""}">
-      <input type="checkbox" ${done?"checked":""} onchange="toggleLearning(${i},this.checked)">
-      <div><div class="learn-title">${t[0]}</div><div class="learn-desc">${t[1]}</div></div>
-    </label>`;
-  }).join("");
+
+  const plan =
+    getTodayPlan();
+
+  const state =
+    getLearningState();
+
+  const today =
+    getToday();
+
+
+  document
+    .getElementById("learningTitle")
+    .textContent =
+    plan.title;
+
+
+  document
+    .getElementById("learningDesc")
+    .textContent =
+    plan.desc;
+
+
+  document
+    .getElementById("learningTasks")
+    .innerHTML =
+
+    plan.tasks.map(
+      (task,index)=>{
+
+        const key =
+          today
+          + "_task_"
+          + index;
+
+        const done =
+          !!state[key];
+
+
+        return `
+
+        <label
+          class="learn-task ${done?"done":""}"
+        >
+
+          <input
+            type="checkbox"
+            ${done?"checked":""}
+            onchange="
+              toggleLearning(
+                ${index},
+                this.checked
+              )
+            "
+          >
+
+          <div>
+
+            <div class="learn-title">
+              ${task[0]}
+            </div>
+
+            <div class="learn-desc">
+              ${task[1]}
+            </div>
+
+          </div>
+
+        </label>
+
+        `;
+
+      }
+    ).join("");
+
+
   updateLearningProgress();
+
 }
 
-function toggleLearning(i,checked){
-  const s=state(), key="task_"+new Date().toISOString().slice(0,10)+"_"+i;
-  s[key]=checked; saveState(s); renderLearning();
-  if(typeof showToast==="function") showToast(checked?"任务完成 ✓":"已取消完成");
+
+function toggleLearning(
+  index,
+  checked
+){
+
+  const state =
+    getLearningState();
+
+  const key =
+    getToday()
+    + "_task_"
+    + index;
+
+  state[key] =
+    checked;
+
+  saveLearningState(state);
+
+  renderLearning();
+
+  if(checked){
+
+    showToast(
+      "任务完成 ✓"
+    );
+
+  }
+
 }
+
 
 function updateLearningProgress(){
-  const p=currentPlan(),s=state(),day=new Date().toISOString().slice(0,10);
-  let done=0;
-  p.tasks.forEach((_,i)=>{if(s["task_"+day+"_"+i])done++;});
-  const pct=Math.round(done/p.tasks.length*100);
-  const bar=document.getElementById("progressBar");
-  const count=document.getElementById("doneCount");
-  const main=document.getElementById("heroMain");
-  if(bar) bar.style.width=pct+"%";
-  if(count) count.textContent=done;
-  if(main) main.textContent=`完成 ${done} / ${p.tasks.length} 项，${done===p.tasks.length?"今天完成得很好！":"继续保持"}`;
+
+  const plan =
+    getTodayPlan();
+
+  const state =
+    getLearningState();
+
+  const today =
+    getToday();
+
+
+  let done = 0;
+
+
+  plan.tasks.forEach(
+    (_,index)=>{
+
+      if(
+        state[
+          today
+          + "_task_"
+          + index
+        ]
+      ){
+
+        done++;
+
+      }
+
+    }
+  );
+
+
+  const total =
+    plan.tasks.length;
+
+
+  const percent =
+    total
+      ? Math.round(
+          done / total * 100
+        )
+      : 0;
+
+
+  const bar =
+    document.getElementById(
+      "progressBar"
+    );
+
+  const count =
+    document.getElementById(
+      "doneCount"
+    );
+
+  const main =
+    document.getElementById(
+      "heroMain"
+    );
+
+
+  if(bar){
+
+    bar.style.width =
+      percent + "%";
+
+  }
+
+
+  if(count){
+
+    count.textContent =
+      done;
+
+  }
+
+
+  if(main){
+
+    main.textContent =
+      `完成 ${done} / ${total} 项，${
+        done===total
+          ? "今天完成得很好！"
+          : "继续保持"
+      }`;
+
+  }
+
 }
 
-function openLearning(){ renderLearning(); document.getElementById("learningModal").classList.add("show"); }
-function closeLearning(){ document.getElementById("learningModal").classList.remove("show"); }
+
+/* ============================================================
+   AI 教学习
+============================================================ */
 
 function askLearningAI(){
+
   closeLearning();
-  if(typeof openChat==="function"){
-    openChat("今日学习指导");
-    document.getElementById("chatInput").value =
-      "我是 AI 小白。请根据我今天的学习任务，先用最简单的方式教我，然后给我一个必须亲手操作的小练习。不要一次讲太多。";
+
+  const review =
+    document.getElementById(
+      "reviewInput"
+    );
+
+  if(review){
+
+    review.value =
+      "我是 AI 小白，请根据我今天的学习任务，用最简单的方式教我，并给我一个必须亲手完成的小练习。不要一次讲太多。";
+
+    scrollToV3(
+      "reviewInput"
+    );
+
   }
+
 }
 
-/* 页面载入后把首页按钮接到真实学习模块 */
-document.addEventListener("DOMContentLoaded",()=>{
-  renderLearning();
-  const nav=document.querySelectorAll(".nav-item");
-  if(nav[1]) nav[1].setAttribute("onclick","openLearning()");
-});
+
+/* ============================================================
+   V3 数据存储
+============================================================ */
+
+function getV3Store(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(
+        "aiGrowthV3"
+      )
+      ||
+      '{"learning":[],"content":[],"data":[]}'
+    );
+
+  }catch(e){
+
+    return {
+
+      learning:[],
+      content:[],
+      data:[]
+
+    };
+
+  }
+
+}
+
+
+function saveV3Store(store){
+
+  localStorage.setItem(
+    "aiGrowthV3",
+    JSON.stringify(store)
+  );
+
+}
+
+
+/* ============================================================
+   学习记录
+============================================================ */
+
+function saveLearningRecord(){
+
+  const text =
+    document
+      .getElementById(
+        "learnRecord"
+      )
+      .value
+      .trim();
+
+
+  const minutes =
+    Number(
+      document
+        .getElementById(
+          "learnMinutes"
+        )
+        .value
+        || 0
+    );
+
+
+  if(!text){
+
+    showToast(
+      "先写一点今天学到的内容"
+    );
+
+    return;
+
+  }
+
+
+  const store =
+    getV3Store();
+
+
+  store.learning.unshift({
+
+    date:getToday(),
+
+    text:text,
+
+    minutes:minutes
+
+  });
+
+
+  store.learning =
+    store.learning.slice(
+      0,
+      30
+    );
+
+
+  saveV3Store(store);
+
+
+  document
+    .getElementById(
+      "learnRecord"
+    )
+    .value="";
+
+
+  document
+    .getElementById(
+      "learnMinutes"
+    )
+    .value="";
+
+
+  renderV3();
+
+  showToast(
+    "学习记录已保存 ✓"
+  );
+
+}
+
+
+function loadLatestLearning(){
+
+  const store =
+    getV3Store();
+
+
+  if(
+    !store.learning.length
+  ){
+
+    showToast(
+      "还没有学习记录"
+    );
+
+    return;
+
+  }
+
+
+  document
+    .getElementById(
+      "learnRecord"
+    )
+    .value =
+    store.learning[0].text;
+
+
+  document
+    .getElementById(
+      "learnMinutes"
+    )
+    .value =
+    store.learning[0].minutes
+    || "";
+
+
+  showToast(
+    "已载入最近一条学习记录"
+  );
+
+}
+
+
+/* ============================================================
+   自媒体内容记录
+============================================================ */
+
+function saveContentRecord(){
+
+  const title =
+    document
+      .getElementById(
+        "contentTitle"
+      )
+      .value
+      .trim();
+
+
+  const platform =
+    document
+      .getElementById(
+        "contentPlatform"
+      )
+      .value
+      .trim();
+
+
+  const status =
+    document
+      .getElementById(
+        "contentStatus"
+      )
+      .value;
+
+
+  const note =
+    document
+      .getElementById(
+        "contentNote"
+      )
+      .value
+      .trim();
+
+
+  if(!title){
+
+    showToast(
+      "先填写内容标题"
+    );
+
+    return;
+
+  }
+
+
+  const store =
+    getV3Store();
+
+
+  store.content.unshift({
+
+    date:getToday(),
+
+    title:title,
+
+    platform:platform,
+
+    status:status,
+
+    note:note
+
+  });
+
+
+  store.content =
+    store.content.slice(
+      0,
+      30
+    );
+
+
+  saveV3Store(store);
+
+
+  document
+    .getElementById(
+      "contentTitle"
+    )
+    .value="";
+
+
+  document
+    .getElementById(
+      "contentPlatform"
+    )
+    .value="";
+
+
+  document
+    .getElementById(
+      "contentNote"
+    )
+    .value="";
+
+
+  renderV3();
+
+
+  showToast(
+    "内容记录已保存 ✓"
+  );
+
+}
+
+
+/* ============================================================
+   数据记录
+============================================================ */
+
+function saveDataRecord(){
+
+  const title =
+    document
+      .getElementById(
+        "dataTitle"
+      )
+      .value
+      .trim();
+
+
+  if(!title){
+
+    showToast(
+      "先填写内容名称"
+    );
+
+    return;
+
+  }
+
+
+  const store =
+    getV3Store();
+
+
+  store.data.unshift({
+
+    date:getToday(),
+
+    title:title,
+
+    views:Number(
+      document
+        .getElementById(
+          "dataViews"
+        )
+        .value
+        || 0
+    ),
+
+    likes:Number(
+      document
+        .getElementById(
+          "dataLikes"
+        )
+        .value
+        || 0
+    ),
+
+    saves:Number(
+      document
+        .getElementById(
+          "dataSaves"
+        )
+        .value
+        || 0
+    ),
+
+    comments:Number(
+      document
+        .getElementById(
+          "dataComments"
+        )
+        .value
+        || 0
+    )
+
+  });
+
+
+  store.data =
+    store.data.slice(
+      0,
+      30
+    );
+
+
+  saveV3Store(store);
+
+
+  [
+    "dataTitle",
+    "dataViews",
+    "dataLikes",
+    "dataSaves",
+    "dataComments"
+  ]
+  .forEach(
+    id=>{
+
+      document
+        .getElementById(id)
+        .value="";
+
+    }
+  );
+
+
+  renderV3();
+
+
+  showToast(
+    "数据已保存 ✓"
+  );
+
+}
+
+
+/* ============================================================
+   V3 页面渲染
+============================================================ */
+
+function renderV3(){
+
+  const store =
+    getV3Store();
+
+
+  const learningList =
+    document.getElementById(
+      "learningRecordList"
+    );
+
+
+  if(learningList){
+
+    learningList.innerHTML =
+      store.learning.length
+
+      ?
+
+      store.learning
+      .slice(0,3)
+      .map(
+        item=>`
+
+        <div class="v3-record">
+
+          <strong>
+            ${item.date}
+            ·
+            ${item.minutes || 0}
+            分钟
+          </strong>
+
+          <span>
+            ${escapeHTML(
+              item.text
+            )}
+          </span>
+
+        </div>
+
+        `
+      )
+      .join("")
+
+      :
+
+      '<div class="v3-empty">还没有记录。</div>';
+
+  }
+
+
+  const contentList =
+    document.getElementById(
+      "contentRecordList"
+    );
+
+
+  if(contentList){
+
+    contentList.innerHTML =
+      store.content.length
+
+      ?
+
+      store.content
+      .slice(0,3)
+      .map(
+        item=>`
+
+        <div class="v3-record">
+
+          <strong>
+            ${escapeHTML(
+              item.title
+            )}
+          </strong>
+
+          <span>
+            ${item.date}
+            ·
+            ${escapeHTML(
+              item.platform || "未填写平台"
+            )}
+            ·
+            ${escapeHTML(
+              item.status
+            )}
+          </span>
+
+        </div>
+
+        `
+      )
+      .join("")
+
+      :
+
+      '<div class="v3-empty">还没有内容记录。</div>';
+
+  }
+
+
+  const dataList =
+    document.getElementById(
+      "dataRecordList"
+    );
+
+
+  if(dataList){
+
+    dataList.innerHTML =
+      store.data.length
+
+      ?
+
+      store.data
+      .slice(0,3)
+      .map(
+        item=>`
+
+        <div class="v3-record">
+
+          <strong>
+            ${escapeHTML(
+              item.title
+            )}
+          </strong>
+
+          <span>
+            ${item.date}
+            · 阅读 ${item.views}
+            · 👍 ${item.likes}
+            · ⭐ ${item.saves}
+            · 💬 ${item.comments}
+          </span>
+
+        </div>
+
+        `
+      )
+      .join("")
+
+      :
+
+      '<div class="v3-empty">还没有数据记录。</div>';
+
+  }
+
+
+  const summary =
+    document.getElementById(
+      "growthSummary"
+    );
+
+
+  if(summary){
+
+    summary.innerHTML = `
+
+      <span class="v3-chip">
+        学习记录 ${store.learning.length}
+      </span>
+
+      <span class="v3-chip">
+        内容记录 ${store.content.length}
+      </span>
+
+      <span class="v3-chip">
+        数据记录 ${store.data.length}
+      </span>
+
+      <span class="v3-chip">
+        本地保存 ✓
+      </span>
+
+    `;
+
+  }
+
+}
+
+
+function escapeHTML(text){
+
+  return String(text)
+    .replace(
+      /[&<>"']/g,
+      function(match){
+
+        return {
+
+          "&":"&amp;",
+          "<":"&lt;",
+          ">":"&gt;",
+          '"':"&quot;",
+          "'":"&#39;"
+
+        }[match];
+
+      }
+    );
+
+}
+
+
+/* ============================================================
+   AI 学习复盘
+============================================================ */
+
+async function aiReview(){
+
+  const input =
+    document.getElementById(
+      "reviewInput"
+    );
+
+
+  const result =
+    document.getElementById(
+      "reviewResult"
+    );
+
+
+  const store =
+    getV3Store();
+
+
+  const latest =
+    store.learning.length
+      ? store.learning[0].text
+      : "";
+
+
+  const text =
+    input.value.trim()
+    || latest;
+
+
+  if(!text){
+
+    showToast(
+      "先写学习记录，AI 才能复盘"
+    );
+
+    return;
+
+  }
+
+
+  result.textContent =
+    "AI 正在复盘你的学习……";
+
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/chat",
+        {
+
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+            "application/json"
+          },
+
+          body:JSON.stringify({
+
+            message:`
+
+你是我的个人 AI 学习教练。
+
+今天是 ${getToday()}。
+
+这是我今天的学习记录：
+
+${text}
+
+请严格按照下面结构帮助我复盘：
+
+【1. 今天真正学会了什么】
+
+用 AI 小白能理解的话总结。
+
+【2. 可能还没掌握的地方】
+
+指出 1-3 个薄弱点，不要故意夸我。
+
+【3. 一个必须亲手完成的小练习】
+
+最好结合我正在做的 AI 小白成长 Agent。
+
+【4. 明天最重要的一个任务】
+
+只给一个最重要的任务。
+
+【5. 是否适合变成一条自媒体内容】
+
+如果适合：
+
+给我一个真实经历型标题。
+
+再给我一个 3 秒开头。
+
+不要一次安排太多内容。
+
+`
+
+          })
+
+        }
+
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(!response.ok){
+
+      throw new Error(
+        data.error
+        ||
+        "API 请求失败"
+      );
+
+    }
+
+
+    result.textContent =
+      data.reply
+      ||
+      data.content
+      ||
+      "AI 没有返回内容";
+
+
+  }catch(error){
+
+    result.textContent =
+      "复盘失败：\n"
+      +
+      error.message;
+
+  }
+
+}
+
+
+/* ============================================================
+   页面启动
+============================================================ */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    renderV3();
+
+    updateLearningProgress();
+
+  }
+);
+
 </script>
 
 </body>
