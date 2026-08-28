@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI 小白成长 Agent</title>
+<style>
+  :root{
+    --bg:#f7f7fb;
+    --card:#ffffff;
+    --text:#171722;
+    --muted:#77798a;
+    --line:#e9e9f0;
+    --primary:#6c55ff;
+    --primary2:#8b78ff;
+    --soft:#f0edff;
+    --success:#35a76f;
+    --shadow:0 12px 35px rgba(34,25,90,.08);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    color:var(--text);
+    background:linear-gradient(180deg,#faf9ff 0%,var(--bg) 55%,#f4f4f8 100%);
+  }
+  button{font:inherit}
+  .app{min-height:100vh;padding-bottom:92px}
+  .container{width:min(1080px,calc(100% - 32px));margin:0 auto}
+  header{padding:44px 0 26px}
+  .eyebrow{
+    color:var(--primary);font-weight:800;letter-spacing:2px;
+    font-size:14px;text-transform:uppercase;margin-bottom:12px
+  }
+  h1{font-size:clamp(32px,5vw,52px);margin:0 0 10px;line-height:1.08;letter-spacing:-1.5px}
+  .subtitle{color:var(--muted);font-size:17px;margin:0;line-height:1.7}
+  .topbar{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-top:26px}
+  .date{color:var(--muted);font-size:14px}
+  .badge{
+    display:inline-flex;align-items:center;gap:7px;padding:9px 13px;border-radius:999px;
+    background:var(--soft);color:var(--primary);font-size:13px;font-weight:700
+  }
+  .hero{
+    background:linear-gradient(135deg,#6c55ff,#8975ff);
+    color:#fff;border-radius:28px;padding:28px;box-shadow:0 18px 45px rgba(108,85,255,.22);
+    position:relative;overflow:hidden;
+  }
+  .hero:after{
+    content:"";position:absolute;width:260px;height:260px;border-radius:50%;
+    right:-100px;top:-120px;background:rgba(255,255,255,.10)
+  }
+  .hero-title{font-size:15px;opacity:.82;margin-bottom:8px}
+  .hero-main{font-size:30px;font-weight:800;margin-bottom:18px}
+  .progress{height:9px;background:rgba(255,255,255,.22);border-radius:99px;overflow:hidden}
+  .progress span{display:block;width:25%;height:100%;background:#fff;border-radius:99px}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+  .stat{background:rgba(255,255,255,.12);border-radius:18px;padding:15px}
+  .stat b{display:block;font-size:25px;margin-bottom:3px}.stat small{opacity:.78}
+  section{margin-top:30px}
+  .section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:14px}
+  .section-head h2{margin:0;font-size:23px}
+  .section-head span{font-size:13px;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:22px;padding:21px;
+    box-shadow:var(--shadow)
+  }
+  .card-head{display:flex;justify-content:space-between;gap:12px;align-items:start}
+  .icon{
+    width:45px;height:45px;border-radius:14px;background:var(--soft);display:grid;place-items:center;
+    font-size:22px
+  }
+  .card h3{margin:12px 0 5px;font-size:20px}.card p{margin:0;color:var(--muted);line-height:1.6;font-size:14px}
+  .task-list{margin:17px 0 0;padding:0;list-style:none}
+  .task-list li{padding:10px 0;border-top:1px solid var(--line);font-size:14px;display:flex;gap:9px}
+  .task-list li:before{content:"□";color:var(--primary);font-size:18px;line-height:1}
+  .btn{
+    border:0;border-radius:13px;padding:11px 17px;cursor:pointer;font-weight:750;
+    background:var(--primary);color:white;margin-top:16px
+  }
+  .btn.secondary{background:#f0f0f6;color:#303044}
+  .quick{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px
+  }
+  .quick .card{cursor:pointer;transition:.18s transform}
+  .quick .card:hover{transform:translateY(-3px)}
+  .quick h3{font-size:17px}
+  .tip{
+    padding:18px 20px;background:#fff;border:1px solid var(--line);border-radius:18px;
+    color:#55576a;line-height:1.75;font-size:14px
+  }
+  nav{
+    position:fixed;z-index:20;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);
+    backdrop-filter:blur(16px);border-top:1px solid var(--line)
+  }
+  .nav-inner{width:min(650px,100%);margin:auto;display:grid;grid-template-columns:repeat(4,1fr)}
+  .nav-item{
+    border:0;background:transparent;padding:13px 8px 11px;color:#888b9d;cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:5px;font-size:12px;font-weight:700
+  }
+  .nav-item .nav-icon{font-size:22px}.nav-item.active{color:var(--primary)}
+  .toast{
+    position:fixed;left:50%;bottom:92px;transform:translateX(-50%) translateY(15px);
+    background:#20202a;color:white;padding:11px 16px;border-radius:12px;opacity:0;
+    pointer-events:none;transition:.2s;font-size:13px
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  @media(max-width:720px){
+    .container{width:min(100% - 22px,1080px)}
+    header{padding-top:28px}
+    .grid,.quick{grid-template-columns:1fr}
+    .stats{gap:8px}.stat{padding:12px}.stat b{font-size:21px}
+    .hero{padding:22px;border-radius:23px}.hero-main{font-size:25px}
+    .card{padding:18px}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <main class="container">
+    <header>
+      <div class="eyebrow">PERSONAL AI GROWTH AGENT</div>
+      <h1>AI 小白成长 Agent</h1>
+      <p class="subtitle">学 AI · 做项目 · 做内容 · 逐步变现</p>
+      <div class="topbar">
+        <span class="date" id="today"></span>
+        <span class="badge">● 第 1 天 · 正在启动</span>
+      </div>
+    </header>
+
+    <div class="hero">
+      <div class="hero-title">今日成长进度</div>
+      <div class="hero-main">完成 1 / 4 项，继续保持</div>
+      <div class="progress"><span></span></div>
+      <div class="stats">
+        <div class="stat"><b>1</b><small>今日完成</small></div>
+        <div class="stat"><b>0</b><small>连续学习</small></div>
+        <div class="stat"><b>1</b><small>项目累计</small></div>
+      </div>
+    </div>
+
+    <section>
+      <div class="section-head"><h2>今日任务</h2><span>先完成最重要的一件事</span></div>
+      <div class="grid">
+        <div class="card">
+          <div class="card-head"><div class="icon">📚</div><span class="badge">约 60 分钟</span></div>
+          <h3>AI 学习</h3>
+          <p>今天：回顾你已经完成的 Agent，并把整个技术逻辑用自己的话讲清楚。</p>
+          <ul class="task-list">
+            <li>说清楚 HTML / GitHub / Vercel 的关系</li>
+            <li>说清楚 API 为什么不能直接暴露在前端</li>
+            <li>写下今天真正学会的 3 个知识点</li>
+          </ul>
+          <button class="btn" onclick="showToast('已进入 AI 学习任务（第一版为演示按钮）')">开始学习</button>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><div class="icon">📱</div><span class="badge">约 45 分钟</span></div>
+          <h3>自媒体运营</h3>
+          <p>今天：围绕“AI 小白自己做 Agent”继续积累真实案例，而不是硬讲专家知识。</p>
+          <ul class="task-list">
+            <li>确定 1 个真实经历型选题</li>
+            <li>写出开头 3 秒钩子</li>
+            <li>整理电脑录屏与成品截图</li>
+          </ul>
+          <button class="btn" onclick="showToast('已进入内容创作任务（第一版为演示按钮）')">开始创作</button>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>快速开始</h2><span>以后这里会接入真实功能</span></div>
+      <div class="quick">
+        <div class="card" onclick="showToast('下一阶段：上传小红书 / 抖音 / B站后台截图')">
+          <div class="icon">📊</div><h3>账号数据分析</h3>
+          <p>上传后台截图 → AI读取数据 → 找出问题 → 给下一条内容建议。</p>
+        </div>
+        <div class="card" onclick="showToast('下一阶段：根据你的每日计划自动生成选题')">
+          <div class="icon">💡</div><h3>今日选题</h3>
+          <p>根据你的学习进度和账号方向，生成适合你当前阶段的内容。</p>
+        </div>
+        <div class="card" onclick="showToast('下一阶段：接入 AI API，成为真正可以对话的 Agent')">
+          <div class="icon">🤖</div><h3>AI 成长助手</h3>
+          <p>告诉 Agent 今天遇到的问题，它会结合你的历史进度给出下一步。</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>今日提醒</h2></div>
+      <div class="tip">
+        <strong>不要追求一天学完所有 AI。</strong><br>
+        你的路线是：<b>学一个知识 → 做一个小项目 → 变成一条内容 → 看数据 → 复盘 → 再学下一个。</b>
+        这个 Agent 以后会帮你把这条闭环记录下来。
+      </div>
+    </section>
+  </main>
+
+  <nav>
+    <div class="nav-inner">
+      <button class="nav-item active" onclick="showToast('首页')"><span class="nav-icon">⌂</span>首页</button>
+      <button class="nav-item" onclick="showToast('下一阶段开发：每日学习计划')"><span class="nav-icon">✓</span>学习</button>
+      <button class="nav-item" onclick="showToast('下一阶段开发：选题 / 脚本 / 发布记录')"><span class="nav-icon">✦</span>内容</button>
+      <button class="nav-item" onclick="showToast('下一阶段开发：截图分析 / 数据复盘')"><span class="nav-icon">◈</span>数据</button>
+    </div>
+  </nav>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+  const d = new Date();
+  document.getElementById("today").textContent =
+    `${d.getFullYear()} 年 ${d.getMonth()+1} 月 ${d.getDate()} 日`;
+
+  function showToast(text){
+    const el = document.getElementById("toast");
+    el.textContent = text;
+    el.classList.add("show");
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(()=>el.classList.remove("show"), 2200);
+  }
+</script>
+</body>
+</html>
