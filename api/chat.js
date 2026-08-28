@@ -2,181 +2,115 @@ export default async function handler(req, res) {
   // 只允许 POST
   if (req.method !== "POST") {
     return res.status(405).json({
-      error: "只允许 POST 请求"
+      error: "只支持 POST 请求"
     });
   }
 
   try {
-    const { message } = req.body || {};
-
-    if (!message || !message.trim()) {
-      return res.status(400).json({
-        error: "请输入内容"
-      });
-    }
-
-    // 从 Vercel 环境变量读取 DeepSeek API Key
+    // 检查 API Key
     const apiKey = process.env.DEEPSEEK_API_KEY;
 
     if (!apiKey) {
       return res.status(500).json({
-        error: "服务器尚未配置 DEEPSEEK_API_KEY"
+        error: "没有找到 DEEPSEEK_API_KEY"
       });
     }
 
-    const response = await fetch(
-      "https://api.deepseek.com/chat/completions",
-      {
-        method: "POST",
+    // 获取前端发送的问题
+    const { message } = req.body || {};
 
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${apiKey}`
-        },
+    if (!message) {
+      return res.status(400).json({
+        error: "没有收到 message"
+      });
+    }
 
-        body: JSON.stringify({
-          model: "deepseek-v4-flash",
+    // 调用 DeepSeek
+    const response = await fetch("https://api.deepseek.com/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${apiKey}`
+      },
+      body: JSON.stringify({
+        model: "deepseek-chat",
+        messages: [
+          {
+            role: "system",
+            content: `
+你是“AI 小白成长 Agent”。
 
-          messages: [
-            {
-              role: "system",
-              content: `
-你是我的「AI 小白成长与自媒体运营 Agent」。
+你的任务不是单纯回答问题，而是长期帮助用户学习 AI、做项目、运营自媒体并逐步实现变现。
 
-你的任务不是单纯回答问题，而是长期帮助我完成：
+用户目前处于 AI 初学阶段。
 
-AI学习 → 项目实践 → 内容创作 → 数据复盘 → 能力提升 → 逐步变现。
+回答要求：
+1. 用小白能够理解的语言解释
+2. 不要堆砌专业术语
+3. 如果出现专业术语，必须顺便解释
+4. 尽量给出下一步可以直接执行的操作
+5. 如果用户学习 AI，要告诉他“学什么、为什么学、怎么练”
+6. 如果用户做自媒体，要结合他的真实学习过程给出选题、脚本、剪辑和发布建议
+7. 如果用户遇到代码问题，要一步一步排查
+8. 不要假装已经执行了用户电脑上的操作
+9. 如果信息不足，明确告诉用户缺少什么
+10. 回答要有结构，可以使用标题、编号和清单
 
-我是AI学习初学者。
+用户的长期路线：
 
-我正在学习：
+学一个知识
+→ 做一个小项目
+→ 把过程变成内容
+→ 发布
+→ 看数据
+→ 复盘
+→ 再学习
+→ 最终寻找变现机会
 
-ChatGPT、Claude、Codex、DeepSeek、GitHub、Vercel、API、Agent、Skill等。
-
-我已经通过 HTML + GitHub + Vercel + API + AI模型完成过一个简单的学习Agent。
-
-请不要把我当成专业程序员。
-
-回答时：
-
-1. 使用通俗中文。
-2. 不要一次给我过多任务。
-3. 每次优先告诉我下一步应该做什么。
-4. 技术问题要告诉我具体在哪个文件、哪个界面操作。
-5. 如果遇到报错，先帮助我定位原因。
-6. 每学一个知识点，尽量让我实际操作。
-7. 尽量把学习内容转化成项目或自媒体内容。
-8. 根据我的实际进度调整建议。
-
-我的自媒体方向：
-
-AI小白成长
-+
-自己做Agent
-+
-AI工具实测
-+
-踩坑记录
-+
-小项目
-+
-学习过程
-+
-未来逐步变现。
-
-不要让我假装AI专家。
-
-我的核心内容应该是：
-
-「一个普通人如何从AI小白开始学习、做项目、做Agent。」
-
-如果我问今天应该做什么：
-
-请给出：
-
-- 今日最重要任务
-- 预计时间
-- 具体步骤
-- 今日成果
-- 可转化的自媒体选题
-
-如果我问自媒体：
-
-请帮助我生成：
-
-- 标题
-- 开头3秒
-- 台词
-- 镜头
-- 屏幕展示
-- 剪辑建议
-- 封面文字
-- 发布文案
-- 评论区互动问题
-
-如果我上传账号后台截图并要求分析：
-
-请先读取能够识别的数据。
-
-不要编造看不清的数据。
-
-然后分析：
-
-- 曝光
-- 点赞
-- 收藏
-- 评论
-- 涨粉
-- 内容表现
-- 可能原因
-- 下一步建议
-- 下一条内容建议
-
-最终目标：
-
-让我每天向前走一点。
-
-而不是让我一次学会所有AI知识。
-              `
-            },
-            {
-              role: "user",
-              content: message.trim()
-            }
-          ],
-
-          thinking: {
-            type: "disabled"
+请始终围绕这条路线帮助用户。
+            `
           },
+          {
+            role: "user",
+            content: message
+          }
+        ],
+        temperature: 0.7,
+        max_tokens: 2000
+      })
+    });
 
-          stream: false
-        })
-      }
-    );
-
+    // 获取 DeepSeek 返回的数据
     const data = await response.json();
 
+    // DeepSeek API 本身报错
     if (!response.ok) {
       return res.status(response.status).json({
-        error:
-          data?.error?.message ||
-          "DeepSeek API 调用失败"
+        error: data?.error?.message || "DeepSeek API 调用失败",
+        details: data
       });
     }
 
-    const answer =
-      data?.choices?.[0]?.message?.content ||
-      "AI没有返回内容";
+    // 提取 AI 回复
+    const reply = data?.choices?.[0]?.message?.content;
 
+    if (!reply) {
+      return res.status(500).json({
+        error: "DeepSeek 返回成功，但没有找到 AI 回复",
+        details: data
+      });
+    }
+
+    // 返回给前端
     return res.status(200).json({
-      answer
+      reply: reply
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("AI API Error:", error);
 
     return res.status(500).json({
-      error: "服务器发生错误，请稍后再试"
+      error: error.message || "服务器发生未知错误"
     });
   }
 }
