@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  // 只允许 POST 请求
+  // 只允许 POST
   if (req.method !== "POST") {
     return res.status(405).json({
       error: "只允许 POST 请求"
@@ -15,26 +15,32 @@ export default async function handler(req, res) {
       });
     }
 
-    // 从 Vercel 环境变量读取 API Key
-    const apiKey = process.env.OPENAI_API_KEY;
+    // 从 Vercel 环境变量读取 DeepSeek API Key
+    const apiKey = process.env.DEEPSEEK_API_KEY;
 
     if (!apiKey) {
       return res.status(500).json({
-        error: "服务器尚未配置 OPENAI_API_KEY"
+        error: "服务器尚未配置 DEEPSEEK_API_KEY"
       });
     }
 
     const response = await fetch(
-      "https://api.openai.com/v1/responses",
+      "https://api.deepseek.com/chat/completions",
       {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${apiKey}`
         },
+
         body: JSON.stringify({
-          model: "gpt-5.6-luna",
-          instructions: `
+          model: "deepseek-v4-flash",
+
+          messages: [
+            {
+              role: "system",
+              content: `
 你是我的「AI 小白成长与自媒体运营 Agent」。
 
 你的任务不是单纯回答问题，而是长期帮助我完成：
@@ -44,6 +50,7 @@ AI学习 → 项目实践 → 内容创作 → 数据复盘 → 能力提升 →
 我是AI学习初学者。
 
 我正在学习：
+
 ChatGPT、Claude、Codex、DeepSeek、GitHub、Vercel、API、Agent、Skill等。
 
 我已经通过 HTML + GitHub + Vercel + API + AI模型完成过一个简单的学习Agent。
@@ -81,11 +88,12 @@ AI工具实测
 
 我的核心内容应该是：
 
-“一个普通人如何从AI小白开始学习、做项目、做Agent。”
+「一个普通人如何从AI小白开始学习、做项目、做Agent。」
 
 如果我问今天应该做什么：
 
 请给出：
+
 - 今日最重要任务
 - 预计时间
 - 具体步骤
@@ -95,6 +103,7 @@ AI工具实测
 如果我问自媒体：
 
 请帮助我生成：
+
 - 标题
 - 开头3秒
 - 台词
@@ -112,6 +121,7 @@ AI工具实测
 不要编造看不清的数据。
 
 然后分析：
+
 - 曝光
 - 点赞
 - 收藏
@@ -127,8 +137,19 @@ AI工具实测
 让我每天向前走一点。
 
 而不是让我一次学会所有AI知识。
-          `,
-          input: message.trim()
+              `
+            },
+            {
+              role: "user",
+              content: message.trim()
+            }
+          ],
+
+          thinking: {
+            type: "disabled"
+          },
+
+          stream: false
         })
       }
     );
@@ -137,12 +158,18 @@ AI工具实测
 
     if (!response.ok) {
       return res.status(response.status).json({
-        error: data?.error?.message || "AI调用失败"
+        error:
+          data?.error?.message ||
+          "DeepSeek API 调用失败"
       });
     }
 
+    const answer =
+      data?.choices?.[0]?.message?.content ||
+      "AI没有返回内容";
+
     return res.status(200).json({
-      answer: data.output_text || "AI没有返回内容"
+      answer
     });
 
   } catch (error) {
