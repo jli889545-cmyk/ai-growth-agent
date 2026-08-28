@@ -499,6 +499,22 @@ nav{
   }
 }
 </style>
+
+<style>
+.learning-modal{position:fixed;inset:0;background:rgba(20,20,30,.45);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
+.learning-modal.show{display:flex}
+.learning-box{width:min(760px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:24px;padding:25px;box-shadow:0 30px 80px rgba(0,0,0,.25)}
+.learning-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.learning-head h2{margin:0}
+.day-info{color:#77798a;font-size:14px;margin-bottom:14px}
+.learn-task{display:flex;gap:12px;align-items:flex-start;padding:15px 4px;border-top:1px solid #e9e9f0}
+.learn-task input{width:20px;height:20px;margin-top:2px;accent-color:#6c55ff}
+.learn-task.done .learn-title{text-decoration:line-through;color:#999}
+.learn-title{font-weight:800;margin-bottom:4px}
+.learn-desc{font-size:13px;color:#77798a;line-height:1.6}
+.learn-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+</style>
+
 </head>
 
 <body>
@@ -622,7 +638,7 @@ AI 学习
 </ul>
 
 <button class="btn"
-onclick="openChat('学习指导')">
+onclick="openLearning()">
 开始学习
 </button>
 
@@ -1327,6 +1343,167 @@ behavior:"smooth"
 
 }
 
+</script>
+
+
+<div class="learning-modal" id="learningModal">
+  <div class="learning-box">
+    <div class="learning-head">
+      <h2 id="learningTitle">今日学习</h2>
+      <button class="close" onclick="closeLearning()">×</button>
+    </div>
+    <div class="day-info" id="learningDesc"></div>
+    <div id="learningTasks"></div>
+    <div class="tip" style="margin-top:15px">
+      <b>完成标准：</b>不是看完，而是能用自己的话解释，并在你的 Agent 项目里实际操作一次。
+    </div>
+    <div class="learn-actions">
+      <button class="btn" onclick="askLearningAI()">不会？让 AI 教我</button>
+      <button class="btn secondary" onclick="closeLearning()">完成，返回首页</button>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ===== V2：每日学习系统 ===== */
+const learningPlan = {
+ "2026-08-28": {
+   title:"第 1 天｜搞懂自己的 Agent",
+   desc:"今天不学新工具，把已经做出来的东西真正理解。",
+   tasks:[
+    ["HTML 是什么？","理解网页界面、按钮和 JavaScript 在你的 Agent 中负责什么。"],
+    ["GitHub + Vercel 是什么关系？","理解 GitHub 保存代码，Vercel 把代码部署成可以访问的网站。"],
+    ["API 为什么不能直接暴露？","理解前端 → 后端 API → AI，以及 API Key 为什么应该放在服务端。"]
+   ]
+ },
+ "2026-08-29": {
+   title:"第 2 天｜JavaScript 入门",
+   desc:"只学这个项目真正用得到的 JavaScript。",
+   tasks:[
+    ["看懂 fetch()","知道网页如何向 /api/chat 发送请求。"],
+    ["看懂 async / await","知道为什么调用 AI 时需要等待返回结果。"],
+    ["自己改一个按钮","不要复制答案，自己修改按钮文字或提示。"]
+   ]
+ },
+ "2026-08-30": {
+   title:"第 3 天｜API + JSON",
+   desc:"把“网页 → API → DeepSeek → 返回答案”讲清楚。",
+   tasks:[
+    ["理解 POST 请求","知道 message 是怎样发送给后端的。"],
+    ["理解 JSON","能看懂请求和返回结果的大致结构。"],
+    ["画出 Agent 架构","用户 → 网页 → /api/chat → DeepSeek → 返回答案。"]
+   ]
+ },
+ "2026-08-31": {
+   title:"第 4 天｜Prompt 与 Agent",
+   desc:"从“调用模型”开始进入“让 AI 按规则完成任务”。",
+   tasks:[
+    ["理解 Prompt","知道角色、目标、背景和输出要求为什么重要。"],
+    ["写自己的 Agent 规则","定义它是你的 AI 学习 + 自媒体教练。"],
+    ["固定输出格式","让 AI 按“问题 → 原因 → 下一步行动”回答。"]
+   ]
+ },
+ "2026-09-01": {
+   title:"第 5 天｜GitHub 基础",
+   desc:"以后你要敢自己修改代码、提交和回退。",
+   tasks:[
+    ["理解 commit","知道一次 commit 就是保存一个版本。"],
+    ["查看修改记录","知道改坏后如何找到之前版本。"],
+    ["完成一次自己的修改","修改 index.html 并提交到 GitHub。"]
+   ]
+ },
+ "2026-09-02": {
+   title:"第 6 天｜Claude / Codex / Skills",
+   desc:"先建立工具地图，不追求一次全部学会。",
+   tasks:[
+    ["Claude","了解它适合哪些 AI 对话、分析和编程场景。"],
+    ["Codex","了解它如何辅助理解、编写和修改代码。"],
+    ["Skills","理解可复用的能力/工作流程为什么能让 Agent 更稳定。"]
+   ]
+ },
+ "2026-09-03": {
+   title:"第 7 天｜第一周复盘",
+   desc:"把第一周学习变成真正属于你的能力。",
+   tasks:[
+    ["复习 10 个关键词","不用背定义，用自己的话解释。"],
+    ["记录 3 个没搞懂的问题","交给 AI 成长助手分析。"],
+    ["发布一条真实经历内容","主题：AI 小白第一次把自己的 Agent 跑通。"]
+   ]
+ }
+};
+
+function state(){
+  try { return JSON.parse(localStorage.getItem("aiGrowthState") || "{}"); }
+  catch(e){ return {}; }
+}
+function saveState(s){ localStorage.setItem("aiGrowthState", JSON.stringify(s)); }
+
+function currentPlan(){
+  const key = new Date().toISOString().slice(0,10);
+  return learningPlan[key] || {
+    title:"今日学习｜项目实战",
+    desc:"打开自己的项目，复习最近学过的内容，并记录一个不会的问题。",
+    tasks:[
+      ["复习最近学过的知识","用自己的话解释一个概念。"],
+      ["修改项目中的一个小地方","自己完成，不要只复制粘贴。"],
+      ["记录今天的问题","把问题交给 AI 成长助手。"]
+    ]
+  };
+}
+
+function renderLearning(){
+  const p=currentPlan(), s=state();
+  document.getElementById("learningTitle").textContent=p.title;
+  document.getElementById("learningDesc").textContent=p.desc;
+  document.getElementById("learningTasks").innerHTML=p.tasks.map((t,i)=>{
+    const key="task_"+new Date().toISOString().slice(0,10)+"_"+i;
+    const done=!!s[key];
+    return `<label class="learn-task ${done?"done":""}">
+      <input type="checkbox" ${done?"checked":""} onchange="toggleLearning(${i},this.checked)">
+      <div><div class="learn-title">${t[0]}</div><div class="learn-desc">${t[1]}</div></div>
+    </label>`;
+  }).join("");
+  updateLearningProgress();
+}
+
+function toggleLearning(i,checked){
+  const s=state(), key="task_"+new Date().toISOString().slice(0,10)+"_"+i;
+  s[key]=checked; saveState(s); renderLearning();
+  if(typeof showToast==="function") showToast(checked?"任务完成 ✓":"已取消完成");
+}
+
+function updateLearningProgress(){
+  const p=currentPlan(),s=state(),day=new Date().toISOString().slice(0,10);
+  let done=0;
+  p.tasks.forEach((_,i)=>{if(s["task_"+day+"_"+i])done++;});
+  const pct=Math.round(done/p.tasks.length*100);
+  const bar=document.getElementById("progressBar");
+  const count=document.getElementById("doneCount");
+  const main=document.getElementById("heroMain");
+  if(bar) bar.style.width=pct+"%";
+  if(count) count.textContent=done;
+  if(main) main.textContent=`完成 ${done} / ${p.tasks.length} 项，${done===p.tasks.length?"今天完成得很好！":"继续保持"}`;
+}
+
+function openLearning(){ renderLearning(); document.getElementById("learningModal").classList.add("show"); }
+function closeLearning(){ document.getElementById("learningModal").classList.remove("show"); }
+
+function askLearningAI(){
+  closeLearning();
+  if(typeof openChat==="function"){
+    openChat("今日学习指导");
+    document.getElementById("chatInput").value =
+      "我是 AI 小白。请根据我今天的学习任务，先用最简单的方式教我，然后给我一个必须亲手操作的小练习。不要一次讲太多。";
+  }
+}
+
+/* 页面载入后把首页按钮接到真实学习模块 */
+document.addEventListener("DOMContentLoaded",()=>{
+  renderLearning();
+  const nav=document.querySelectorAll(".nav-item");
+  if(nav[1]) nav[1].setAttribute("onclick","openLearning()");
+});
 </script>
 
 </body>
